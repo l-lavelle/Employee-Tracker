@@ -1,5 +1,5 @@
 const inquirer = require('inquirer');
-const { viewDepartment,viewRoles,viewEmployees,addDepartment } = require('./scripts/queries');
+const { viewDepartment,viewRoles,viewEmployees,addDepartment,addRole } = require('./scripts/queries');
 
 
 const startmenu =
@@ -16,27 +16,26 @@ function init() {
     .then((response)=>{
          switch(response.startMenu){
             case "View all departments": 
-                 viewDepartment();
-                 setTimeout(init, 2000);
+                viewDepartment(init)
                  break;
             case "View all roles": 
-                viewRoles();
-                setTimeout(init,2000);
+                viewRoles(init);
                 break;
             case "View all employees":
-                viewEmployees();
-                setTimeout(init,2000);
+                viewEmployees(init);
                 break;
             case "Add a department":
-                setTimeout(init,2000);
-                addDepartment()
+                addDepartment(init);
+                break;
             case "Add a role":
+                addRole(init);
+                break;
             case "Add an employee":
             case "Update an employee role":
             case "Exit":
           
         }
-    })      
+    })   
 };
 
 init();
@@ -47,11 +46,11 @@ init();
 // https://dev.to/elhamnajeebullah/mysql-how-to-create-one-to-many-relationship-4gph
 // comments
 // README
+// take out index??
+// validate
 
-// WHEN I choose to view all departments
-// THEN I am presented with a formatted table showing department names and department ids
-// WHEN I choose to view all roles
-// THEN I am presented with the job title, role id, the department that role belongs to, and the salary for that role
+
+
 // WHEN I choose to view all employees
 // THEN I am presented with a formatted table showing employee data, including employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to
 // WHEN I choose to add a department
