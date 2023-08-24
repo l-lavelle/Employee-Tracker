@@ -52,4 +52,4 @@ MySQL Package:
 
 
 ## Video Walkthrough
-[Video Link]()
+[Video Link](https://drive.google.com/file/d/1Zgi9Jfkzrc8DdKGpnqBK4W0tXUf8FPke/view)

@@ -45,9 +45,6 @@ function init() {
 init();
 
 
-
-
-// Prepated statments
 // Video
  
 
