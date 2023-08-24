@@ -1,7 +1,8 @@
+// Import Modules 
 const inquirer = require('inquirer');
 const { viewDepartment,viewRoles,viewEmployees,addDepartment,addRole,addEmployee,updateEmployee } = require('./scripts/queries');
 
-
+// Questions for Inquirer Prompt
 const startmenu =
 [
     {type: "list",
@@ -11,6 +12,7 @@ const startmenu =
     }
 ]
 
+// Prompts user for input and calls functions
 function init() {
     inquirer.prompt(startmenu)
     .then((response)=>{
@@ -44,8 +46,7 @@ init();
 
 
 
-// comments
-// validate
+
 // Prepated statments
 // Video
  

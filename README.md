@@ -30,9 +30,12 @@ Packages:
 ## Usage
 To use this application open a command terminal and type node index.js. This will connect to the MySQL database and take you to a main menu. Use the keyboard to choose which option you would like to pick. If adding or altering data follow the prompts to complete your action.
 
-<img src="" width='400' height='auto'><br>
-<img src="" width='400' height='auto'><br>
-<img src="" width='400' height='auto'><br>
+Main Menu:<br>
+<img src="./images/menu.png" width='400' height='auto'><br>
+View Roles:<br>
+<img src="./images/view_roles.png" width='400' height='auto'><br>
+Add Employees:<br>
+<img src="./images/add_employee.png" width='400' height='auto'><br>
 
 ## License 
 MIT License
@@ -44,7 +47,7 @@ SQL Foreign Keys and Recursion
 - https://www.mysqltutorial.org/mysql-foreign-key/<br>
 - https://medium.com/swlh/recursion-in-sql-explained-graphically-679f6a0f143b<br>
 
-MySQL:
+MySQL Package:
 - https://www.npmjs.com/package/mysql2
 
 

@@ -1,7 +1,8 @@
+// Import Modules
 const db = require("./connection");
 const inquirer = require('inquirer');
 
-
+// Get all departments and return as table
 function viewDepartment(restart){
     return db.promise().query("SELECT * from department")
     .then( ([rows,fields]) => {
@@ -10,6 +11,7 @@ function viewDepartment(restart){
     .then(restart)
 };
 
+// Get all data for roles and return as table 
 function viewRoles(restart){
     db.promise().query("SELECT r.id AS role_id, r.title, r.salary, d.name AS department from role AS r JOIN department AS d ON r.department_id = d.id")
     .then( ([rows,fields]) => {
@@ -18,6 +20,7 @@ function viewRoles(restart){
     .then(restart)
 };
 
+// Get all employee data and return table 
 function viewEmployees(restart){
     db.promise().query(
         `SELECT e.id AS 
@@ -38,13 +41,20 @@ function viewEmployees(restart){
     .then(restart)
 };
 
+// Add a department to database 
 function addDepartment(restart){
      inquirer.prompt(
         [
             {type:"input",
             name: "department",
-            message:"Please enter new department you want to add:\n"
-            }
+            message:"Please enter new department you want to add:\n",
+            validate: function(department){
+                if (department.trim()===""){
+                    return console.log("Please enter a department name")
+                } else {
+                    return true
+                }
+            }}
         ]
     ).then((response)=>{
         db.promise().query(`INSERT INTO department (name) 
@@ -54,7 +64,7 @@ function addDepartment(restart){
     .then(restart)
 };
 
-// clean code 
+// Add a role to database
 let departmentObj={}
 function addRole(restart){
     db.promise().query("SELECT * from department")
@@ -69,11 +79,25 @@ function addRole(restart){
         [
             {type:"input",
             name: "role",
-            message:"Please enter new role you want to add:\n"
+            message:"Please enter new role you want to add:\n",
+            validate:function(role){
+                if(role.trim()===""){
+                    return console.log("Please enter a role")
+                }else{
+                    return true
+                }
+            } 
             },
             {type:"input",
             name:"salary",
-            message:"Please enter the salary amount for the role:\n"
+            message:"Please enter the salary amount for the role:\n",
+            validate: function(salary){
+                if(salary.trim()===""){
+                    return console.log("Please enter salary amount")
+                }else{
+                    return true
+                }
+            }
             },
             {type:"list",
             name:"department",
@@ -82,18 +106,18 @@ function addRole(restart){
         ])
     })
     .then((response)=>{
-        let dept_id= departmentObj.find(dept=>dept.name===response.department)
-        let trial= dept_id.id
+        let dept= departmentObj.find(dept=>dept.name===response.department)
+        let dept_id= dept.id
 
         db.promise().query(`INSERT INTO role (title, salary, department_id) 
-            VALUES ('${response.role}','${response.salary}','${trial}')`)
+            VALUES ('${response.role}','${response.salary}','${dept_id}')`)
             console.log(`${response.role} role has been added to database`)
             
     })
     .then(restart)
 }
 
-
+// Query database for role id and title create array and object 
 const rolesArray=[]
 let roleObj
 function getRoles(){
@@ -104,7 +128,7 @@ function getRoles(){
     })
 }
 
-
+// Query database for mangaer name and id create array and object 
 const managerArray = []
 let managerObj
 function getManager(){
@@ -114,6 +138,8 @@ function getManager(){
         rows.forEach((row)=>managerArray.push(`${row.first_name} ${row.last_name}`));
     })
 }
+
+// Add new employee to the database 
 function addEmployee(restart){
     getRoles();
     getManager();
@@ -121,11 +147,25 @@ function addEmployee(restart){
         [
             {type:"input",
             name: "firstName",
-            message:"Please enter first name of the employee:\n"
+            message:"Please enter first name of the employee:\n",
+            validate: function(firstName){
+                if(firstName.trim()===""){
+                    return console.log("Please enter first name of employee")
+                }else{
+                    return true
+                }
+            }
             },
             {type:"input",
             name:"lastName",
-            message:"Please enter the last name of the employee:\n"
+            message:"Please enter the last name of the employee:\n",
+            validate: function(lastName){
+                if(lastName.trim()===""){
+                    return console.log("Please enter a last name of the employee")
+                }else{
+                    return true
+                }
+            }
             },
             {
             type:"list",
@@ -152,7 +192,8 @@ function addEmployee(restart){
         .then(restart)
 
 }
- 
+
+// Update an employee role in database 
 const employeeArray=[]
 function updateEmployee(restart){
     db.promise().query("SELECT first_name,last_name FROM employee")
